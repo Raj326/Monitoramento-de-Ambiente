@@ -18,25 +18,20 @@ wks = gc.open_by_key('1sk4CNJPf8Rt37QYJruexBSVtvObFtuM4a50scS2yh5c')
 #abre primeira página da planilha
 worksheet = wks.get_worksheet(0)
 
-#worksheet.update_acell('A1', 'temperatura')
-#worksheet.update_acell('B1', 'hora')
-
 temperaturas = {'temperatura':[],'hora':[]}
 
 for i in range(5):
-    agora = datetime.now()
-    response = requests.get('http://localhost:1026/v1/contextEntities/ROBO?')
+    response = requests.get('http://127.0.0.1:8000/rooms/1')
     response = json.loads(response.text)
-    temperatura = float(response['temp'])
+    temperatura = float(response['temperature'])
     temperaturas['temperatura'].append(temperatura)
-    agora = datetime.now()
-    temperaturas['hora'].append(agora.strftime('%H:%M:%S'))
+    agora = str(response['time'])
+    temperaturas['hora'].append(agora) 
     #construir arquivo csv caso esteja trabalhando com o pandas 
     #dataframe = pd.DataFrame(data = temperaturas)
     #dataframe.to_csv('temperaturas.csv', encoding='utf-8', index=False)
     print(temperaturas)
     time.sleep(4)
-
 
 #Contador de colunas e celulas
 colums = 1
