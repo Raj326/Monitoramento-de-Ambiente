@@ -13,10 +13,18 @@ sheet = client.open("Teste Python").sheet1
 temp = sheet.col_values(1)
 time = sheet.col_values(2)
 
-plt.plot(time, temp)
+t = []
+
+for i in temp:
+    t.append(float(i))
+
 plt.title("Monitoramento de temperatura")
-plt.ylabel("Temperatura")
+plt.ylabel("Temperatura / °C")
 plt.xlabel("Hora")
+plt.axis(ymin=0.0, ymax=40.0)
+plt.plot(time, t, label="Temperaturas", marker="o")
+plt.legend()
+plt.grid(True)
 
 plt.show()
 
